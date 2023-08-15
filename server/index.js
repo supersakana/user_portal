@@ -3,11 +3,14 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
 
+require('dotenv').config()
+const db = process.env.DB_CONN
+
 app.listen(4000, () => {
     console.log("Server started on PORT 4000")
 })
 
-mongoose.connect("mongodb://localhost:27017", {
+mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
