@@ -11,6 +11,7 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
         try{
             const { data } = await axios.post(
                 "http://localhost:4000/register",
@@ -19,7 +20,7 @@ export default function Register() {
                 
                 console.log(data)
         } catch(error) {
-            console.log(error)
+            console.log(error.message)
         }
       };
 
