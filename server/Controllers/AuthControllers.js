@@ -11,6 +11,14 @@ const createToken = (id) => {
 const handleErrors = (error) => {
     let errors = { email: "", password: ""}
 
+    if(error.message === "Incorrect email"){
+		errors.email = "That email is not registered"
+	}
+
+	if(error.message === "Incorrect password"){
+		errors.password = "Password is incorrect"
+	}
+
     if(error.code === 11000){
         errors.email = "Email is already registered"
     }
