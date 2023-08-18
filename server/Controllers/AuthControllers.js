@@ -19,8 +19,9 @@ module.exports.register = async (req, res, next) => {
             httpOnly: false,
             maxAge: maxAge * 1000,
         })
+
         res.status(201).json({ user: user._id, created: true })
-        console.log("Successfully created user")
+
     } catch(error) {
         console.log(error.message)
     }

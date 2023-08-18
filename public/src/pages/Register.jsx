@@ -11,14 +11,21 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         try{
             const { data } = await axios.post(
                 "http://localhost:4000/register",
                 { ...values },
                 { withCredentials: true })
                 
-                console.log(data)
+                if(data){
+                  if(data.errors){
+                    // handle errors
+                  } else {
+                    // redirect to home
+                  }
+
+                }
         } catch(error) {
             console.log(error.message)
         }
