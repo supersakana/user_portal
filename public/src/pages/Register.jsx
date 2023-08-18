@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"
-import { ToastContainer } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios"
 
 export default function Register() {
+    const navigate = useNavigate()
+
     const [values, setValues] = useState({
         email: "",
         password: ""
+    })
+
+    const generateError = (error) => toast.error(error, {
+      position: "bottom-right"
     })
 
     const handleSubmit = async (e) => {
@@ -20,9 +26,12 @@ export default function Register() {
                 
                 if(data){
                   if(data.errors){
-                    // handle errors
+                    const { email, password } = data.errors
+                    if(email) generateError(email)
+                    else if (password) generateError(password)
+                    
                   } else {
-                    // redirect to home
+                    navigate("/")
                   }
 
                 }
