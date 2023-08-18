@@ -16,6 +16,8 @@ export default function Register() {
                 "http://localhost:4000/register",
                 { ...values },
                 { withCredentials: true })
+                
+                console.log(data)
         } catch(error) {
             console.log(error)
         }
