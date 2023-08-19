@@ -18,6 +18,7 @@ export default function Secret() {
           {},
           { withCredentials: true }
         )
+        
         if (!data.status){
           removeCookie("jwt")
           navigate("/login")
@@ -27,9 +28,10 @@ export default function Secret() {
       }
     }
     verifyUser();
-  }, [cookies, navigate, removeCookie]) //dependency array
+  }, [navigate, cookies, removeCookie]) //dependency array
 
   const logOut = () => {
+    removeCookie("jwt")
     navigate("/login")
   }
 
