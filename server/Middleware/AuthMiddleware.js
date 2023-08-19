@@ -1,7 +1,7 @@
 const User = require("../Models/UserModel")
 const jwt = require("jsonwebtoken")
 
-module.export.checkUser = (req, res, next) => {
+module.exports.checkUser = (req, res, next) => {
     const token = req.cookies.jwt
     if(token) {
         jwt.verify(token, "secret_key", async (error, decoded) => {
