@@ -8,7 +8,8 @@ export default function Register() {
 
     const [values, setValues] = useState({
         email: "",
-        password: ""
+        password: "",
+        username: "",
     })
 
     const generateError = (error) => toast.error(error, {
@@ -26,10 +27,11 @@ export default function Register() {
                 
                 if(data){
                   if(data.errors){
+                    const { username, email, password } = data.errors
                     
-                    const { email, password } = data.errors
                     if(email) generateError(email)
                     else if (password) generateError(password)
+                    else if (username) generateError(username)
                   
                   } else {
                     navigate("/")
@@ -45,6 +47,17 @@ export default function Register() {
     <div className="container">
       <h2>Register Account</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
+        <div>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            onChange={(e) =>
+              setValues({ ...values, [e.target.name]: e.target.value })
+            }
+          />
+        </div>
         <div>
           <label htmlFor="email">Email</label>
           <input

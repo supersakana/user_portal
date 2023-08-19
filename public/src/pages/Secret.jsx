@@ -8,6 +8,9 @@ export default function Secret() {
   const navigate = useNavigate()
   const [cookies, removeCookie] = useCookies([])
 
+  // https://dmitripavlutin.com/react-useeffect-explanation/
+  // ^^^ look into useEffect with this article
+
   useEffect(() => {
     const verifyUser = async () => {
       if(!cookies.jwt){
@@ -18,7 +21,7 @@ export default function Secret() {
           {},
           { withCredentials: true }
         )
-        
+
         if (!data.status){
           removeCookie("jwt")
           navigate("/login")
