@@ -12,7 +12,7 @@ const handleErrors = (error) => {
     let errors = { username: "", email: "", password: "" }
 
     if(error.message === "Incorrect email"){
-		errors.email = "That email is not registered"
+		errors.email = "Incorrect email or username"
 	}
 
 	if(error.message === "Incorrect password"){
@@ -20,7 +20,10 @@ const handleErrors = (error) => {
 	}
 
     if(error.code === 11000){
-        errors.email = "Email is already registered"
+        Object.keys(error.keyPattern).forEach((key) => {
+            const input = key.charAt(0).toUpperCase()+ key.slice(1)
+            errors[key] = `${input} is already registered`
+        })
     }
     if(error.message.includes("Users validation failed")){
         Object.values(error.errors).forEach(({ properties }) => {

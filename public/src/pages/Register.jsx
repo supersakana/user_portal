@@ -18,17 +18,23 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
+        if(values.username === values.email){
+          generateError("Username and email can not be the same")
+          return
+        }
 
         try{
             const { data } = await axios.post(
                 "http://localhost:4000/register",
                 { ...values },
                 { withCredentials: true })
-                
+
                 if(data){
                   if(data.errors){
+              
                     const { username, email, password } = data.errors
-                    
+
                     if(email) generateError(email)
                     else if (password) generateError(password)
                     else if (username) generateError(username)
