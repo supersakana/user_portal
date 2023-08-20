@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import axios from "axios"
@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify"
 export default function Secret() {
   const navigate = useNavigate()
   const [cookies, removeCookie] = useCookies([])
+
+  const [currentUser, setCurrentUser] = useState({})
 
   // https://dmitripavlutin.com/react-useeffect-explanation/
   // ^^^ look into useEffect with this article
@@ -23,10 +25,12 @@ export default function Secret() {
         )
 
         if (!data.status){
+          setCurrentUser({})
           removeCookie("jwt")
           navigate("/login")
         } else {
-          toast(`Hi ${data.user}`, { theme: "dark" })
+          setCurrentUser(data.user)
+          toast(`Hi ${data.user.username}`, { theme: "dark" })
         }
       }
     }
@@ -34,6 +38,7 @@ export default function Secret() {
   }, [navigate, cookies, removeCookie]) //dependency array
 
   const logOut = () => {
+    setCurrentUser({})
     removeCookie("jwt")
     navigate("/login")
   }
@@ -42,6 +47,7 @@ export default function Secret() {
     <>
       <div>
         <h1>Secret Page</h1>
+        <h3>Welcome { currentUser.username }</h3>
         <button onClick={logOut}>Log out</button>
       </div>
       <ToastContainer />

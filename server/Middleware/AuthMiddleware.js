@@ -12,7 +12,7 @@ module.exports.checkUser = (req, res, next) => {
                 const user = await User.findById(decoded.id)
 
                 if(user){
-                    res.json({ status: true, user: user.username })
+                    res.json({ status: true, user: user })
                 } else {
                     res.json({ status: false })
                     next()
