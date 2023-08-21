@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { Schema } = mongoose;
 
 const postSchema = new mongoose.Schema({
     title: {
@@ -8,6 +9,11 @@ const postSchema = new mongoose.Schema({
     body: {
         type: String,
         required: [true, "A body is required"],
+    },
+    user: { 
+        type: Schema.Types.ObjectId,
+        ref: "User" ,
+        required: true,
     },
 }, { timestamps: true })
 
