@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from "axios"
 
 function PostForm() {
     const [values, setValues] = useState({
@@ -7,6 +8,19 @@ function PostForm() {
     })
     const handleSubmit = async (e) => {
             e.preventDefault()
+
+            try{
+                const { data } = await axios.post(
+                    "http://localhost:4000/post",
+                    { ...values },
+                    { withCredentials: true })
+                    
+                    if(data){
+                      console.log(data)
+                    }
+            } catch(error) {
+                console.log(error.message)
+            }
         };
       
     return (
@@ -36,7 +50,7 @@ function PostForm() {
                         }
                     />
                 </div>
-                
+
                 <button type="submit">Submit</button>
             </form>
         </div>

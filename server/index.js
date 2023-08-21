@@ -1,9 +1,12 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
-const authRoutes = require("./Routes/AuthRoutes")
 const app = express()
 const cookieParser = require("cookie-parser")
+
+// Routes
+const authRoutes = require("./Routes/AuthRoutes")
+const postRoutes = require("./Routes/PostRoutes")
 
 require('dotenv').config()
 const db = process.env.DB_CONN
@@ -35,4 +38,7 @@ app.use(
 
 app.use(cookieParser())
 app.use(express.json())
+
+
 app.use("/", authRoutes)
+app.use("/", postRoutes)
