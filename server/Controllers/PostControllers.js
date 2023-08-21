@@ -1,14 +1,13 @@
+const PostModel = require("../Models/PostModel");
+
 module.exports.post = async (req, res, next) => {
     try {
         const { title, body } = req.body
-
-        console.log(`${title} - ${body}`)
+        const post = await PostModel.create({ title, body })
        
-        res.status(200).json( { created:true })
+        res.status(201).json( { post: post, created:true })
 
     } catch(error) {
-        console.log(`${title} - ${body}`)
-        
         res.json({ error, created: false })
     }
 };
