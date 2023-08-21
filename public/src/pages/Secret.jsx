@@ -4,6 +4,9 @@ import { useCookies } from "react-cookie"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 
+// Components
+import PostForm from "../components/PostForm";
+
 export default function Secret() {
   const navigate = useNavigate()
   const [cookies, removeCookie] = useCookies([])
@@ -49,6 +52,7 @@ export default function Secret() {
         <h1>Secret Page</h1>
         <h3>Welcome { currentUser.username }</h3>
         <button onClick={logOut}>Log out</button>
+        <PostForm />
       </div>
       <ToastContainer />
     </>
