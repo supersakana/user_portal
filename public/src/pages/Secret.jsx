@@ -52,7 +52,7 @@ export default function Secret() {
         <h1>Secret Page</h1>
         <h3>Welcome { currentUser.username }</h3>
         <button onClick={logOut}>Log out</button>
-        <PostForm />
+        <PostForm currentUser={ currentUser } />
       </div>
       <ToastContainer />
     </>

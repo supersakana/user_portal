@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios"
 
-function PostForm() {
+function PostForm({ currentUser }) {
     const [values, setValues] = useState({
         title: "",
         body: ""
@@ -12,7 +12,7 @@ function PostForm() {
             try{
                 const { data } = await axios.post(
                     "http://localhost:4000/post",
-                    { ...values },
+                    { ...values, user: currentUser },
                     { withCredentials: true })
                     
                     if(data){
