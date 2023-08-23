@@ -69,8 +69,11 @@ export default function Secret() {
         <PostForm handlePostSubmit={handlePostSubmit} />
       </div>
 
-      <span>{ currentUser.posts }</span>
-      {/* ^^^ How can we get the posts length to display? */}
+      { currentUser.posts ?  (
+        <span>{ currentUser.posts.length }</span>
+       ) : (
+        <span></span>
+      )}
       <ToastContainer />
     </>
   )
