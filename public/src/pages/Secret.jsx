@@ -13,9 +13,6 @@ export default function Secret() {
 
   const [currentUser, setCurrentUser] = useState({})
 
-  // https://dmitripavlutin.com/react-useeffect-explanation/
-  // ^^^ look into useEffect with this article
-
   useEffect(() => {
     const verifyUser = async () => {
       if(!cookies.jwt){
@@ -46,14 +43,34 @@ export default function Secret() {
     navigate("/login")
   }
 
+  const handlePostSubmit = async (e, values) => {
+    e.preventDefault()
+
+    try{
+        const { data } = await axios.post(
+            "http://localhost:4000/post",
+            { ...values, user: currentUser },
+            { withCredentials: true })
+            
+            if(data){
+              setCurrentUser(data.author)
+            }
+    } catch(error) {
+        console.log(error.message)
+    }
+};
+
   return(
     <>
       <div>
         <h1>Secret Page</h1>
         <h3>Welcome { currentUser.username }</h3>
         <button onClick={logOut}>Log out</button>
-        <PostForm currentUser={ currentUser } />
+        <PostForm handlePostSubmit={handlePostSubmit} />
       </div>
+
+      <span>{ currentUser.posts }</span>
+      {/* ^^^ How can we get the posts length to display? */}
       <ToastContainer />
     </>
   )
